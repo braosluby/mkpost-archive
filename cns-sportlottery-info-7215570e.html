@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞彩网 · 信息卡片介绍页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fbe9d2 0%, #f5d6b3 60%, #ecc29a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            color: #2e241e;
+        }
+
+        .page {
+            max-width: 960px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* 主视觉卡片 (Hero) */
+        .hero-card {
+            background: #fffaf5;
+            border-radius: 32px;
+            padding: 2.4rem 2rem;
+            box-shadow: 0 12px 28px rgba(110, 70, 40, 0.12), 0 6px 12px rgba(0,0,0,0.02);
+            text-align: center;
+            position: relative;
+            transition: box-shadow 0.2s;
+        }
+
+        .hero-card h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #4d2e1c;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-card .sub {
+            font-size: 1rem;
+            color: #7f5f46;
+            border-bottom: 1px dashed #e0cbbc;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card p {
+            max-width: 600px;
+            margin: 0 auto 0.8rem;
+            font-size: 1rem;
+            color: #3d2920;
+        }
+
+        .hero-card .highlight-link {
+            display: inline-block;
+            margin-top: 0.8rem;
+            background: #c9a27b;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1.6rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 8px rgba(160, 100, 60, 0.2);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .hero-card .highlight-link:hover {
+            background: #b58a62;
+            transform: scale(1.02);
+        }
+
+        /* 通用卡片样式 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem;
+        }
+
+        .card {
+            background: #fffcf8;
+            border-radius: 28px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 8px 18px rgba(90, 55, 30, 0.08);
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 26px rgba(80, 50, 25, 0.10);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3f281b;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card h2::before {
+            content: "·";
+            font-size: 1.8rem;
+            color: #c9a27b;
+            margin-right: 0.1rem;
+        }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #3b2a20;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .card ul li {
+            padding: 0.25rem 0 0.25rem 1rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #b69374;
+        }
+
+        .inline-link {
+            color: #7f512f;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #d6b295;
+            transition: border 0.15s, color 0.15s;
+        }
+
+        .inline-link:hover {
+            color: #4d2e18;
+            border-bottom: 1px solid #9f7a5c;
+        }
+
+        /* 自然链接段落卡片 (全宽) */
+        .link-paragraph-card {
+            background: #fffdf9;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 8px 18px rgba(90, 55, 30, 0.06);
+            font-size: 0.98rem;
+        }
+
+        .link-paragraph-card p {
+            margin-bottom: 0.8rem;
+        }
+
+        .link-paragraph-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-mini {
+            background: #fffcf8;
+            border-radius: 28px;
+            padding: 1.5rem 2rem 1.8rem;
+            box-shadow: 0 8px 18px rgba(70, 45, 20, 0.06);
+        }
+
+        .faq-mini h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #3f281b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .faq-mini h3::before {
+            content: "∿";
+            font-size: 1.3rem;
+            color: #b69374;
+        }
+
+        .faq-item {
+            margin-bottom: 0.9rem;
+            border-bottom: 1px solid #ede1d6;
+            padding-bottom: 0.7rem;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #2e1f16;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card h1 {
+                font-size: 1.7rem;
+            }
+
+            .hero-card {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .link-paragraph-card,
+            .faq-mini {
+                padding: 1.3rem 1.2rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #7a5f48;
+            padding-top: 0.6rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- 主视觉卡片 -->
+        <div class="hero-card">
+            <h1>竞彩网</h1>
+            <div class="sub">日常查询 · 对照 · 延伸阅读</div>
+            <p>一个安静的索引页，适合在查阅赛事数据、核对赔率浮动或浏览相关讨论时，作为起点来使用。</p>
+            <p style="font-size:0.92rem; color:#6b4d36;">没有推送，没有弹窗，只有平实的整理。</p>
+            <a class="highlight-link" href="https://cns-sportlottery.com">竞彩网</a>
+        </div>
+
+        <!-- 用途卡片 x2 -->
+        <div class="card-grid">
+            <div class="card">
+                <h2>日常对照</h2>
+                <p>把多个来源的指数放在一起，你才能真正感受其中的差异。不少习惯用<a class="inline-link" href="https://cns-sportlottery.com">竞彩网</a>的朋友，会把它当作一个稳定的参照系——尤其当你想确认某个联赛的让球数值变化，或者对比不同机构的返还率时，它的数据表格往往能提供一种平实的视角。</p>
+                <p style="margin-top:0.7rem;">比起单纯记忆数字，反复翻看会让某些规律慢慢浮现。</p>
+            </div>
+            <div class="card">
+                <h2>延伸阅读</h2>
+                <p>比赛日前后，你可能会搜索球队伤病、战意、天气甚至裁判风格。而<a class="inline-link" href="https://cns-sportlottery.com">竞彩网</a>本身的结构，更适合作为信息链条上的一个锚点——它不负责给出所有答案，但能帮你把零散的资讯挂靠到具体的场次上。</p>
+                <p style="margin-top:0.7rem;">一些人习惯先看这里的基本面摘要，再转向深度分析，形成自己的判断回路。</p>
+            </div>
+        </div>
+
+        <!-- 适合人群卡片（全宽变体，用单卡片形式） -->
+        <div class="card" style="grid-column: 1 / -1; width:100%;">
+            <h2>适合哪些人</h2>
+            <ul>
+                <li>经常做赛前笔记、习惯固定查阅流程的爱好者</li>
+                <li>希望减少信息噪音，把注意力集中在指数与基本面本身的人</li>
+                <li>刚开始接触竞彩，需要一个干净参照页面的新用户</li>
+                <li>喜欢对比不同数据源之间细微差异的钻研型读者</li>
+            </ul>
+        </div>
+
+        <!-- 自然链接段落卡片 -->
+        <div class="link-paragraph-card">
+            <p>无论是快速看一眼早场亚洲指数，还是赛后复盘时检查自己遗漏了哪些变化，把<a class="inline-link" href="https://cns-sportlottery.com">竞彩网</a>放在浏览器的常用书签里，是一个很轻的习惯。它不承诺任何收益，也不制造焦虑——只是每天更新着那几组数字，等你需要的时候，就能找到。</p>
+            <p>很多用户反馈，这个网站最大的优点就是「稳定」：页面加载不拖沓，数据刷新时间可预期，也没有多余的装饰。当你需要专注在赛事本身，这种简洁反而成了一种效率。</p>
+        </div>
+
+        <!-- FAQ 摘要卡片 -->
+        <div class="faq-mini">
+            <h3>一些常见的问题摘要</h3>
+            <div class="faq-item">
+                <strong>数据更新频率如何？</strong>
+                <span>通常每场比赛的指数会在赛前数小时逐步定型，竞彩网会跟随主流供应商的节奏同步刷新。遇到深夜或清晨的小联赛，更新可能稍有延迟，但整体可控。</span>
+            </div>
+            <div class="faq-item">
+                <strong>和官方数据有什么区别？</strong>
+                <span>这里展示的是市场综合指数，而非单一机构的内部开盘。如果你需要核对特定渠道的初盘，建议以<a class="inline-link" href="https://cns-sportlottery.com">竞彩网</a>作为辅助参考，再交叉验证。</span>
+            </div>
+            <div class="faq-item">
+                <strong>手机浏览体验如何？</strong>
+                <span>页面针对手机做了基础适配，卡片在大屏和小屏下都会自动调整。表格在窄屏下需要横向滑动，但核心数值都能完整显示。</span>
+            </div>
+        </div>
+
+        <footer>
+            just a quiet page · 信息卡片式索引
+        </footer>
+    </div>
+</body>
+</html>
